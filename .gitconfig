@@ -1,0 +1,7 @@
+[pull]
+	ff = only
+[user]
+	email = phillipdensmorechaffee@gmail.com
+	name = Phillip Chaffee
+[core]
+	editor = vim
