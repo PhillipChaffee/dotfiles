@@ -11,3 +11,5 @@ fi
 
 
 export PATH="$HOME/.cargo/bin:$PATH"
+
+eval "$(saml2aws --completion-script-bash)"
