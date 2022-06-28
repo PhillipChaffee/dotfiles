@@ -2,14 +2,9 @@
 # ~/.bashrc
 #
 
-# Set vim as editor
-export EDITOR=vim
-
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-alias ls='ls --color=auto'
-PS1='[\u@\h \W]\$ '
 
 ## 
 # SSH config
@@ -68,6 +63,14 @@ export PATH="$PATH:/home/phillip/.dotnet/tools"
 # Random scripts
 ##
 
+# Set vim as editor
+export EDITOR=vim
+
+# Idk what this is lol
+alias ls='ls --color=auto'
+PS1='[\u@\h \W]\$ '
+
+# Terrform autocomplete
 complete -C /usr/bin/terraform terraform
 
 ##
