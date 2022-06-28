@@ -3,5 +3,10 @@
 [user]
 	email = phillipdensmorechaffee@gmail.com
 	name = Phillip Chaffee
+	signingkey = 3958F1AA92C11E5F
 [core]
 	editor = vim
+[commit]
+	gpgsign = true
+[rerere]
+	enabled = true
