@@ -92,67 +92,16 @@ source ~/.dev-env
 # Set up Node Version Manager
 source /usr/share/nvm/init-nvm.sh
 
-# Source VoiceOps stuff
-source ~/.voiceops_helpers
+# Source VoiceOps Infra bash script
+export NOMAD_ROLE=platform-dev
+source ~/git/infrastructure/cfg/aliases.sh
+
+# Source vo-ts-monorepo env stuff
+source ~/.ts-env
 
 ##
 # Helper Functions
 ##
-
-# HashiCorp helpers
-
-vlogin() {
-    if ! vault login -method=oidc -path=okta >/dev/null 2>&1 ; then
-        printf "Error signing you in, please try manually\n"
-    fi
-}
-
-ntok() {
-    if ! vault token lookup >/dev/null 2>&1 ; then
-        vlogin
-    fi
-
-    if ! nomad acl token self -token "$(jq -r .data.secret_id < ~/.nomad-token)" > /dev/null 2>&1 ; then
-        vault read -format json nomad/creds/$NOMAD_ROLE > ~/.nomad-token
-    fi
-
-    NOMAD_TOKEN=$(jq -r .data.secret_id < ~/.nomad-token) 
-    export NOMAD_TOKEN
-    echo $NOMAD_TOKEN
-}
-
-nkeepalive() {
-    ntok
-
-    while vault lease renew "$(jq -r .lease_id < ~/.nomad-token)" > /dev/null 2>&1 ; do
-        sleep 300
-    done
-}
-
-ctok() {
-    if ! vault token lookup >/dev/null 2>&1 ; then
-        vlogin
-    fi
-
-    if ! consul acl token read -id "$(jq -r .data.accessor < ~/.consul-token)" > /dev/null 2>&1 ; then
-        vault read -format json consul/creds/$CONSUL_ROLE > ~/.consul-token
-    fi
-    
-    CONSUL_HTTP_TOKEN=$(jq -r .data.token < ~/.consul-token)
-    export CONSUL_HTTP_TOKEN
-}
-
-ckeepalive() {
-    ctok
-
-    while vault lease renew "$(jq -r .lease_id < ~/.consul-token)" > /dev/null 2>&1 ; do
-        sleep 300
-    done
-}
-
-prodaccess() {
-    nkeepalive &
-}
 
 n_has_namespace() {
   if [[ -z "$NOMAD_NAMESPACE" || "$NOMAD_NAMESPACE" == '*' ]]; then
@@ -320,30 +269,6 @@ nsh() {
   nomad alloc exec -task "$nomad_task" -i -t "$allocation_id" /bin/sh "${sh_cmd_args[@]}"
 }
 
-nrc() {
-  nomad_job="$1"
-  if [[ -z "$nomad_job" ]]; then
-    echo "no \$1 specified for \`nrc <nomad_job>\`" >&2
-    return
-  fi
-  allocation_id=`n_alloc "$nomad_job"`
-  if [[ -z "$allocation_id" ]]; then
-    echo "no running allocation_id was found for '$nomad_job'" >&2
-    return
-  fi
-  nomad alloc exec -task app -i -t "$allocation_id" /usr/local/bin/bundle exec rails c
-}
-
 nbc() {
-  nomad_job="$1"
-  if [[ -z "$nomad_job" ]]; then
-    echo "no \$1 specified for \`nrc <nomad_job>\`" >&2
-    return
-  fi
-  allocation_id=`n_alloc "$nomad_job"`
-  if [[ -z "$allocation_id" ]]; then
-    echo "no running allocation_id was found for '$nomad_job'" >&2
-    return
-  fi
-  nomad alloc exec -task app -i -t "$allocation_id" /bin/bash
+  NOMAD_NAMESPACE=platform nsh 'rails' 'ruby' 'app'
 }
