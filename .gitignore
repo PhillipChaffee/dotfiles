@@ -1,0 +1,17 @@
+# Ignore everything
+*
+
+##
+# Whitelist
+##
+
+!.bash_profile
+!.bashrc
+!.config/i3/*
+!.config/polybar/*
+!.config/powerline/*
+!.gitconfig
+!.profile
+!.vimrc
+!.xinitrc
+!.Xresources
