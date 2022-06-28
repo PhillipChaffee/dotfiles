@@ -59,6 +59,12 @@ export PATH=/home/phillip/path:$PATH
 # Add .NET Core SDK tools
 export PATH="$PATH:/home/phillip/.dotnet/tools"
 
+# Add home bin dir
+export PATH="$PATH:/home/phillip/bin"
+
+# Add local bin dir
+export PATH="$PATH:/home/phillip/.local/bin"
+
 ## 
 # Random scripts
 ##
