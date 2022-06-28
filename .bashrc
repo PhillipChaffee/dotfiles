@@ -89,11 +89,11 @@ eval "$(rbenv init - bash)"
 # Source
 ##
 
-# Source secrets
-source ~/.secrets
-
 # Source dev env vars
 source ~/.dev-env
+
+# Source secrets
+source ~/.secrets
 
 # Set up Node Version Manager
 source /usr/share/nvm/init-nvm.sh
