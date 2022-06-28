@@ -65,6 +65,9 @@ export PATH="$PATH:/home/phillip/bin"
 # Add local bin dir
 export PATH="$PATH:/home/phillip/.local/bin"
 
+# Add yarn bin dir
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
 ## 
 # Random scripts
 ##
