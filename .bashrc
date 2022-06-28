@@ -82,6 +82,9 @@ PS1='[\u@\h \W]\$ '
 # Terrform autocomplete
 complete -C /usr/bin/terraform terraform
 
+# rbenv
+eval "$(rbenv init - bash)"
+
 ##
 # Source
 ##
