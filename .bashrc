@@ -85,6 +85,9 @@ complete -C /usr/bin/terraform terraform
 # rbenv
 eval "$(rbenv init - bash)"
 
+# Set GPG
+export GPG_TTY=$(tty)
+
 ##
 # Source
 ##
