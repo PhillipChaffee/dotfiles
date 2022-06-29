@@ -3,7 +3,7 @@
 [user]
 	email = phillipdensmorechaffee@gmail.com
 	name = Phillip Chaffee
-	signingkey = 3958F1AA92C11E5F
+	signingkey = 49AA5BF2AFB077ED
 [core]
 	editor = vim
 [commit]
