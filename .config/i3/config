@@ -190,3 +190,5 @@ exec --no-startup-id feh --bg-fill ~/Pictures/background.jpg
 # Run Polybar
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
+# Autostart desktop apps
+exec_always --no-startup-id dex -a
