@@ -13,3 +13,7 @@ fi
 export PATH="$HOME/.cargo/bin:$PATH"
 
 eval "$(saml2aws --completion-script-bash)"
+
+
+# Added by Toolbox App
+export PATH="$PATH:/home/phillip/.local/share/JetBrains/Toolbox/scripts"
