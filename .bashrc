@@ -68,12 +68,19 @@ export PATH="$PATH:/home/phillip/.local/bin"
 # Add yarn bin dir
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
-## 
-# Random scripts
+##
+# Set vars
 ##
 
 # Set vim as editor
 export EDITOR=vim
+
+# Set GPG
+export GPG_TTY=$(tty)
+
+## 
+# Random scripts
+##
 
 # Idk what this is lol
 alias ls='ls --color=auto'
@@ -84,9 +91,6 @@ complete -C /usr/bin/terraform terraform
 
 # rbenv
 eval "$(rbenv init - bash)"
-
-# Set GPG
-export GPG_TTY=$(tty)
 
 ##
 # Source
