@@ -14,4 +14,4 @@
 #quiet=true
 
 # override calculated DPI
-dpi=120
+dpi=96
