@@ -5,6 +5,25 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+##
+# Source
+##
+
+# Source dev env vars
+source ~/.dev-env
+
+# Source secrets
+source ~/.secrets
+
+# Set up Node Version Manager
+source /usr/share/nvm/init-nvm.sh
+
+# Source VoiceOps Infra bash script
+export NOMAD_ROLE=platform-dev
+source ~/git/infrastructure/cfg/aliases.sh
+
+# Source vo-ts-monorepo env stuff
+source ~/.ts-env
 
 ## 
 # SSH config
@@ -92,28 +111,29 @@ complete -C /usr/bin/terraform terraform
 # rbenv
 eval "$(rbenv init - bash)"
 
+# Auto load specified nvm version
+enter_directory() {
+  if [[ $PWD == $PREV_PWD ]]; then
+    return
+  fi
+
+  if [[ "$PWD" =~ "$PREV_PWD" && ! -f ".nvmrc" ]]; then
+    return
+  fi
+
+  PREV_PWD=$PWD
+  if [[ -f ".nvmrc" ]]; then
+    nvm use
+    NVM_DIRTY=true
+  elif [[ $NVM_DIRTY = true ]]; then
+    nvm use default
+    NVM_DIRTY=false
+  fi
+}
+export PROMPT_COMMAND=enter_directory
+
 ##
-# Source
-##
-
-# Source dev env vars
-source ~/.dev-env
-
-# Source secrets
-source ~/.secrets
-
-# Set up Node Version Manager
-source /usr/share/nvm/init-nvm.sh
-
-# Source VoiceOps Infra bash script
-export NOMAD_ROLE=platform-dev
-source ~/git/infrastructure/cfg/aliases.sh
-
-# Source vo-ts-monorepo env stuff
-source ~/.ts-env
-
-##
-# Helper Functions
+# HashiCorp Helper Functions
 ##
 
 n_has_namespace() {
