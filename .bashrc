@@ -20,6 +20,7 @@ source /usr/share/nvm/init-nvm.sh
 
 # Source VoiceOps Infra bash script
 export NOMAD_ROLE=platform-dev
+export CONSUL_ROOT=root
 source ~/git/infrastructure/cfg/aliases.sh
 
 # Source vo-ts-monorepo env stuff
