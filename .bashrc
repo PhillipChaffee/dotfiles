@@ -117,7 +117,15 @@ enter_directory() {
 
   PREV_PWD=$PWD
   if [[ -f ".nvmrc" ]]; then
-    nvm use
+    local node_version="$(nvm version)"
+    local nvmrc_path="$(nvm_find_nvmrc)"
+    local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+
+    if [ "$nvmrc_node_version" = "N/A" ]; then
+      nvm install
+    elif [ "$nvmrc_node_version" != "$node_version" ]; then
+      nvm use
+    fi
     NVM_DIRTY=true
   elif [[ $NVM_DIRTY = true ]]; then
     nvm use default
